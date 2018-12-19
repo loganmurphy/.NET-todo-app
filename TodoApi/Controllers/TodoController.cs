@@ -57,6 +57,21 @@ namespace TodoApi.Controllers
 
             return CreatedAtAction("GetTodoItem", new { id = todoItem.Id }, todoItem);
         }
+
+        // PUT: api/Todo/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutTodoItem(long id, TodoItem todoItem)
+        {
+            if (id != todoItem.Id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(todoItem).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
     }
 
 }
